@@ -1,0 +1,44 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+#include <iostream>
+using namespace sf;
+using namespace std;
+#define RAND(Min, Max)  (rand()%((Max)-(Min)+1)+(Min))
+
+class FallingSquare {
+private:
+    RectangleShape square;
+    Text textHp;
+    float speed = 0.3f;
+    Font font;
+    int heath = RAND(1, 10);
+public:
+    FallingSquare() {
+        font.loadFromFile("C:/WINDOWS/FONTS/CASTELAR.TTF");
+    };
+    ////////////////
+    FallingSquare(float x, float y) {
+        font.loadFromFile("C:/WINDOWS/FONTS/CASTELAR.TTF");
+        textHp.setString(to_string(heath));
+        textHp.setCharacterSize(24); // in pixels, not points!
+        textHp.setFillColor(Color::White);
+        textHp.setStyle(Text::Bold | Text::Underlined);
+        textHp.setPosition(x + 15, y + 10);
+        square.setPosition(x, y);
+        square.setSize(Vector2f(50, 50));
+        square.setFillColor(Color::Blue);
+    }
+    ////////////////
+    void draw(RenderWindow& window) {
+        window.draw(square);
+        textHp.setFont(font);
+        window.draw(textHp);
+    }
+    ////////////////
+    void update() {
+        square.move(0, speed);
+        textHp.move(0, speed);
+    }
+    ////////////////
+    RectangleShape& getShape() { return square; }
+};
