@@ -1,0 +1,22 @@
+#include "SFML/Graphics.hpp"
+#include "GamePlace.h"
+#include <iostream>
+using namespace sf;
+using namespace std;
+RenderWindow window(VideoMode(800, 600), "|Fire Game|");
+int main() {
+    GamePlace gamePlace = GamePlace();
+    cout << "Start Fire Game\n";
+    while (window.isOpen()) {
+        Event event{};
+        gamePlace.update(event, window);
+        window.clear();
+        gamePlace.render(window);
+        window.display();
+    }
+    return 0;
+}
+
+
+
+s
