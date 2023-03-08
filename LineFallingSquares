@@ -1,0 +1,50 @@
+#pragma once
+#include "SFML/Graphics.hpp"
+#include "FallingSquare.h"
+#include <iostream>
+using namespace sf;
+using namespace std;
+
+class LineFallingSquare {
+private:
+    FallingSquare fallingSquares[12] = {};
+    bool isValid;
+public:
+    LineFallingSquare() { GenDefFallSq(); }
+    /////////////
+    void draw(RenderWindow& window) {
+        for (int i = 0; i < 12; i++) {
+            fallingSquares[i].draw(window);
+        }
+    }
+    //////////////
+    void checkValidSquares() {
+        if (fallingSquares[0].getShape().getPosition().y >= 600) {
+            GenDefFallSq();
+        }
+    }
+    /////////////
+    void update() {
+        checkValidSquares();
+        for (int i = 0; i < 12; i++) {
+            fallingSquares[i].update();
+        }
+
+    }
+private:
+    void GenDefFallSq() {
+        fallingSquares[0] = FallingSquare(40, 0);
+        fallingSquares[1] = FallingSquare(160, 0);
+        fallingSquares[2] = FallingSquare(220, 0);
+        fallingSquares[3] = FallingSquare(280, 0);
+        fallingSquares[4] = FallingSquare(340, 0);
+        fallingSquares[5] = FallingSquare(400, 0);
+        fallingSquares[6] = FallingSquare(460, 0);
+        fallingSquares[7] = FallingSquare(520, 0);
+        fallingSquares[8] = FallingSquare(580, 0);
+        fallingSquares[9] = FallingSquare(640, 0);
+        fallingSquares[10] = FallingSquare(100, 0);
+        fallingSquares[11] = FallingSquare(700, 0);
+    }
+
+};
