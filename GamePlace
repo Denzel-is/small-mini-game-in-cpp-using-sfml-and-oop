@@ -1,0 +1,37 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+#include "Square.h"
+#include "LineFallingSquares.h"
+using namespace std;
+using namespace sf;
+////////////////
+class GamePlace {
+private:
+    Square square = Square();
+    LineFallingSquare lineFallingSquare = LineFallingSquare();
+public:
+    GamePlace() = default;
+    void render(RenderWindow& window) {
+        lineFallingSquare.draw(window);
+        square.draw(window);
+    }
+    ////////////////
+    void update(Event& event, RenderWindow& window) {
+        while (window.pollEvent(event)) {
+            if (event.type == Event::Closed) {
+                window.close();
+            }
+            //square.getPosition();
+           // Circle::shape.getPosition();
+            else if (event.type == Event::KeyPressed) {
+                square.control(event.key.code, true);
+            }
+            else if (event.type == Event::KeyReleased) {
+                square.control(event.key.code, false);
+            }
+        }
+        square.update();
+        lineFallingSquare.update();
+
+    }
+};
