@@ -1,0 +1,42 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+#include "GamePlace.h"
+
+using namespace sf;
+using namespace std;
+
+class Circle {
+private:
+    CircleShape shape;
+public:
+    Circle() {
+        shape.setRadius(10);
+        shape.setFillColor(Color::White);
+    }
+    ////////////////
+    void setPosition(Vector2f pos) { shape.setPosition(pos); }
+    void setPosition(int x, int y) { shape.setPosition(x, y); }
+    void update() {
+        if (shape.getPosition().y >= 3) {
+            shape.move({ 0,  -3 });
+        }
+        else {
+            shape.setRadius(0);
+        }
+    }
+    /* void circleDamage() {
+         if (event.type == Event::Open) {
+             for( )
+             if()
+         }
+
+         shape.getPosition() = fallingSquares[12].GenDefFallSq()*/
+
+    void draw(RenderWindow& window) { window.draw(shape); }
+
+};
+
+
+
+////////////////
+
