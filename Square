@@ -1,0 +1,61 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+#include "Circle.h"
+#include <iostream>
+using namespace std;
+using namespace sf;
+////////////////
+class Square {
+private:
+	RectangleShape shape;
+	vector<Circle> bullets;
+	Clock clock;
+	bool isMovingLeft;
+	bool isMovingRight;
+public:
+	Square() {
+		shape.setSize({ 50, 50 });
+		shape.setPosition({ 50, 550 });
+		shape.setFillColor(Color::Red);
+		isMovingLeft = false;
+		isMovingRight = false;
+	}
+	/////////////
+	void control(Keyboard::Key key, bool isPressed) {
+		if (key == Keyboard::A) {
+			isMovingLeft = isPressed;
+		}
+		else if (key == Keyboard::D) {
+			isMovingRight = isPressed;
+		}
+	}
+	////////////////
+	void update() {
+		for (auto& circle : bullets) {
+			circle.update();
+		}
+		////////////////
+		if (clock.getElapsedTime().asSeconds() > 0.3f) {
+			Circle newCircle;
+			newCircle.setPosition(getPosition().x + 5, getPosition().y);
+			bullets.push_back(newCircle);
+			clock.restart();
+		}
+		////////////////
+		if (isMovingLeft && shape.getPosition().x > 0) {
+			shape.move({ -1, 0 });
+		}
+		////////////////
+		if (isMovingRight && shape.getPosition().x < 750) {
+			shape.move({ 1, 0 });
+		}
+	}
+	////////////////
+	void draw(RenderWindow& window) {
+		window.draw(shape);
+		for (auto& circle : bullets) {
+			circle.draw(window);
+		}
+	}
+	Vector2f getPosition() { return shape.getPosition(); }
+};
